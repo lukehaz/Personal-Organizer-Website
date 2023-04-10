@@ -1,0 +1,24 @@
+<html>
+  <head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    {% include "navigation.html" %}
+  </head>
+  <body>
+    <div class="container">
+      <div class = "jumbotron">
+      <h1>Login</h1>
+      <form action="/login/" method="POST">
+      <table>
+       {{ login_form.as_table }}
+        {% csrf_token %}
+        <tr><td>
+        <input type="submit" class="btn btn-primary" value = "Login"/>
+        </td></tr>
+        <tr><td>Click <a href="/join">here</a> to join.</td></tr>
+        </table>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

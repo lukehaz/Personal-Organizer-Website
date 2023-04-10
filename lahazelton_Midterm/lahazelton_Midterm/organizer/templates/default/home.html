@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        {% load static %}
+        {% include "bootstrap.html" %}
+        {% include "chartist.html" %}
+        <script src ="{% static 'Organizer.js' %}"> </script>
+      <link rel="stylesheet" href="{% static 'Organizer.css' %}" />
+      </head>
+       {% include "navigation.html" %}
+    <body>
+      <div class="jumbotron">
+          <div class="row">
+          <div class="col-6">
+            {% if task_data.0 or task_data.1 %}
+            <div class="ct-pie-chart ct-perfect-fourth">
+            <script type="text/javascript">
+                  var Pdata = {labels: ["Complete", "Incompleted"],series: {{ task_data }}};
+                  new Chartist.Pie('.ct-pie-chart', Pdata);
+            </script>
+            </div>
+            {% endif %}
+            <div class="text-center">
+            <a href="/tasks/" class="btn btn-primary">Add Task</a>
+            </div>
+            </div>
+            <div class="col-6">
+              {% if budget_projected_data %}
+                  <div class="ct-bar-chart ct-perfect-fourth">
+                  <script type="text/javascript">
+                  var Bdata = {series: [{{ budget_projected_data }},{{ budget_actual_data }}]};
+                  new Chartist.Bar('.ct-bar-chart', Bdata);
+                  </script>
+                  </div>
+              {% endif %}
+                <div class="text-center">
+                <a href="/budget/" class="btn btn-primary">Add Budget</a>
+                </div>
+            </div>
+      </div>
+    </body>
+</html>

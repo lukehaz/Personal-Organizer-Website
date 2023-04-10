@@ -1,0 +1,25 @@
+<html>
+  <head>
+    {% include "bootstrap.html" %}
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    {% include "navigation.html" %}
+    <div class="jumbotron">
+      <h1>Add Budget</h1>
+      <form method="POST">
+        {% csrf_token %}
+        <table>
+          {{ form_data.as_table }}
+          <tr>
+            <td></td>
+            <td>
+              <a href="/budget/" class="btn btn-secondary">Cancel</a>
+              <input type="submit" class="btn btn-primary" name="add" value="Add Budget Entry">
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </body>
+</html>

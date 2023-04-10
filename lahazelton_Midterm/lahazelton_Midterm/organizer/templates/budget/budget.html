@@ -1,0 +1,70 @@
+<html>
+<head>
+  <title>Budget</title>
+  {% include "bootstrap.html" %}
+  {% load static %}
+  {% include "navigation.html" %}
+  <script src="{%static 'Organizer.js' %}"></script>
+  <link rel="stylesheet" href="{%static 'Organizer.css' %}" />
+</head>
+<body>
+  <div class = "jumbotron">
+    <h1>Budget Entries</h1>
+    {% if not table_data %}
+      <p>There are no budgets yet.</p>
+    {% else %}
+      <table class = "table table-striped" border = "1">
+        <tr>
+          <th> Description </th>
+          <th> Category </th>
+          <th> Projected </th>
+          <th> Actual </th>
+          <th> Actions </th>
+        </tr>
+          {% for row in table_data %}
+          <tr>
+            <td>{{row.description}}</td>
+            <td> {{row.category}} </td>
+            <td> {{row.projected}} </td>
+            <td> {{row.actual}} </td>
+            <td>
+              <a class="btn btn-primary" href="/budget/edit/{{row.id}}">Edit</a>
+              <a class="btn btn-primary" href="#" onclick="confirmDeleteModal({{row.id}})">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <p> There is a projected budget
+        {% if finalValue > 0 %}
+          surplus
+        {% elif finalValue == 0 %}
+          remainder
+        {% else %}
+          deficit
+        {% endif %}
+        of ${{finalValue}}
+      </p>
+    {% endif %}
+	  <form method="GET" action="/budget/add">
+	    <input type="submit" class="btn btn-primary" value = "Add Budget Entry">
+	  </form>
+	</div>
+  <div id="deleteModal" class="modal fade" role='dialog'>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Delete Budget Entry</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this Budget Entry?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <span id= 'deleteButton'></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
